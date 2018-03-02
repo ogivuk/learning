@@ -20,3 +20,15 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
 * Take one step at the time.
 * TDD steps:
     1. Write a test, run it and check that it fails as expected.
+
+### Django
+Creating a new project:
+```
+$ django-admin.py startproject <emph>projectName</emph> .
+```
+*manage.py* is Django’s Swiss Army knife. 
+
+Running a development server:
+```
+$ python manage.py runserver
+```
