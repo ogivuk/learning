@@ -37,7 +37,8 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
 #### Unit Tests
 * Unit tests should help writing code that’s clean and bug free.
 * Unit tests test the application from the inside, from the point of view of the programmer.
-* ​The idea is that each line of production code should be tested by (at least) one of unit tests.
+* ​Each line of production code should be tested by (at least) one of unit tests.
+* Every single code change should be driven by the tests.
 
 In Python:
 * Module `unittest`, needs to be imported as `import unittest`
@@ -49,10 +50,18 @@ In Python:
 * If called from command line, the `unittest` test runner can be launched by calling `unittest.main()` within `if __name__ == '__main__'`.
 
 ### Django
+Django’s workflow:
+1. An HTTP request comes in for a particular URL.
+2. Django uses some rules to decide which view function should deal with the request (this is referred to as resolving the URL).
+3. The view function processes the request and returns an HTTP response.
+
+#### Projects
 Creating a new project:
 ```
 $ django-admin.py startproject <project name> .
 ```
+File structure:
+* urls.py - contains mapping from URLs to view functions for the whole site. 
 
 #### manage.py
 * `manage.py` is Django’s Swiss Army knife.
@@ -71,6 +80,7 @@ $ python manage.py startapp <app name>
 
 File structure:
 * tests.py - contains the unit tests for the app.
+* views.py
 
 #### Unit Tests
 * Django has `TestCase`, an augmented version of the standard `unittest`.
@@ -80,3 +90,9 @@ The test runner is invoked by executing:
 ```
 $ python manage.py test
 ```
+
+#### Packages
+django.test
+* .TestCase - a class to be inherited when creating unit tests.
+django.urls
+* .resolve - an internal function used to resolve URLs and find what view function they should map to.
