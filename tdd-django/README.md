@@ -19,7 +19,10 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
 * TDD does not come naturally, it is more like a discipline.
 * Do nothing until you have a test! "Test first, test first!".
 * Take one step at the time.
-* Functional tests drive the development a high level, while the unit tests drive it at a low level.
+* TDD can be seen as a way to save progress, take a break, and make sure to never slip backwards.
+    * No need to worry about forgetting what to do next - ​just rerun the tests and they will tell what you need to work on.
+    * "TDD is there to help us out when we’re tired and not so smart".
+* Functional tests drive the development at a high level, while the unit tests drive it at a low level.
 * TDD workflow:
     1. Write a functional test, which initially fails, describing the new functionality from the user's point of view.
     2. Think how to write code that can get the functional test to pass the current failure,
@@ -98,10 +101,28 @@ $ python manage.py test
 #### Packages
 django.http
 * HttpRequest - a class which object captures what Django sees when a user’s browser asks for a page.
-* HttpResponse - a class which object is a response of view function
+* HttpResponse - a class which object is a response of view function.
     * content - the content of the response in raw bytes that would be sent down the wire to the user’s browser.
         * decode - a function that converts the raw content into the string of HTML that’s being sent to the user.
+
 django.test
 * TestCase - a class to be inherited when creating unit tests.
+
 django.urls
 * resolve - an internal function used to resolve URLs and find what view function they should map to.
+
+### Selenium
+* webdriver - used to open a web browser.
+    * Firefox() - opens the Firefox web browser.
+        * get() - opens the web page on the given URL.
+        * find_elements_by_tag_name() - returns a list of elements with the given tag
+        * find_element_by_tag_name() - returns an element with the given tag
+        * find_elements_by_id() - returns a list of elements with the given id
+        * find_element_by_id() - returns an element with the given id
+            * text - the text content of the element
+            * get_attribute()
+            * send_keys() - typing into input elements the given content, can also send keys (e.g., Keys.ENTER)
+        * quit() - closes the web browser.
+    * common
+        * keys
+            * Keys - a class that allows the use of special keys, such as Enter.
