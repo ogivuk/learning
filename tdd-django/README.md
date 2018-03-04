@@ -26,6 +26,10 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
     and write one or more unit tests to define how the code should behave.
     3. Write the smallest amount of application code just enough to pass the unit test.
     4. Rerun functional tests to see if they pass or get a little further. Iterate the steps 2-4 until the functional test passes.
+* TDD unit-test/code cycle:
+    1. Run the unit tests and see how they fail.
+    2. Make a minimal code change to address the current test failure.
+    3. Repeat the steps 1. and 2. until the unit tests pass.
 
 #### Functional tests = Acceptance tests = End-to-end tests
 * Functional tests should help building an application with the right functionality, and guarantee that will never be accidentally broken.
@@ -92,7 +96,12 @@ $ python manage.py test
 ```
 
 #### Packages
+django.http
+* HttpRequest - a class which object captures what Django sees when a user’s browser asks for a page.
+* HttpResponse - a class which object is a response of view function
+    * content - the content of the response in raw bytes that would be sent down the wire to the user’s browser.
+        * decode - a function that converts the raw content into the string of HTML that’s being sent to the user.
 django.test
-* .TestCase - a class to be inherited when creating unit tests.
+* TestCase - a class to be inherited when creating unit tests.
 django.urls
-* .resolve - an internal function used to resolve URLs and find what view function they should map to.
+* resolve - an internal function used to resolve URLs and find what view function they should map to.
