@@ -46,6 +46,8 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
 * Unit tests test the application from the inside, from the point of view of the programmer.
 * ​Each line of production code should be tested by (at least) one of unit tests.
 * Every single code change should be driven by the tests.
+* Unit tests are about testing logic, flow control, and configuration.
+    * Do not test constants, e.g., HTML strings.
 
 In Python:
 * Module `unittest`, needs to be imported as `import unittest`
@@ -55,6 +57,14 @@ In Python:
 * `self.fail` fails no matter what with the given error message.
 * Some additional `unittest` helper functions for test assertions: `assertEqual`, `assertTrue`, `assertFalse`.
 * If called from command line, the `unittest` test runner can be launched by calling `unittest.main()` within `if __name__ == '__main__'`.
+
+#### Refactoring
+* Improving the code without changing its functionality.
+* Refactoring should not be done without tests.
+* When refactoring, one should work on either the code or the tests, but not both at once.
+* If both code and tests need to be refactored:
+    1. First, the code should be refactored until all (old) tests are still passing.
+    2. Then, the tests can be refactored until they all pass.
 
 ### Django
 Django’s workflow:
@@ -68,6 +78,8 @@ Creating a new project:
 $ django-admin.py startproject <project name> .
 ```
 File structure:
+* settings.py - contains the settings of the project.
+    * List of registered apps for the project.
 * urls.py - contains mapping from URLs to view functions for the whole site. 
 
 #### manage.py
@@ -85,9 +97,13 @@ Starting an app:
 $ python manage.py startapp <app name>
 ```
 
-File structure:
+Registering the app with the project:
+* in the project's `settings.py`, add `<app name>` into the `INSTALLED_APPS` variable.
+
+File and folder structure:
+* templates/ - contains the templates for rendering. Not initially created, but Django searches this directory for templates by default.
 * tests.py - contains the unit tests for the app.
-* views.py
+* views.py - contains the views, which are functions that render templates, called when resolving URLs.
 
 #### Unit Tests
 * Django has `TestCase`, an augmented version of the standard `unittest`.
@@ -103,10 +119,20 @@ django.http
 * HttpRequest - a class which object captures what Django sees when a user’s browser asks for a page.
 * HttpResponse - a class which object is a response of view function.
     * content - the content of the response in raw bytes that would be sent down the wire to the user’s browser.
-        * decode - a function that converts the raw content into the string of HTML that’s being sent to the user.
+        * decode(_encoding_) - a function that converts the raw content into the string of HTML that’s being sent to the user.
+
+django.shortcuts
+* render(HttpRequest, _templateName_) - a function that renders the given template and returns a HttpResponse.
 
 django.test
 * TestCase - a class to be inherited when creating unit tests.
+    * assertTemplateUsed(_response_, _templateName_) - a function that asserts if the response, returned by the test client, corresponds to the given template.
+* Client - a class that acts as a dummy Web browser used to test views, if the correct template is being rendered.
+    * get(_URL_to_be_tested_) - a function that takes a URL, resolves it via views, and returns a HttpResponse
+
+django.template
+* loader
+    * render_to_string(_templateName_) - a function that renders the given template and returns a string.
 
 django.urls
 * resolve - an internal function used to resolve URLs and find what view function they should map to.
