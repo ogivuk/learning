@@ -23,16 +23,16 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
     * No need to worry about forgetting what to do next - ​just rerun the tests and they will tell what you need to work on.
     * "TDD is there to help us out when we’re tired and not so smart".
 * Functional tests drive the development at a high level, while the unit tests drive it at a low level.
-* TDD workflow:
-    1. Write a functional test, which initially fails, describing the new functionality from the user's point of view.
-    2. Think how to write code that can get the functional test to pass the current failure,
-    and write one or more unit tests to define how the code should behave.
-    3. Write the smallest amount of application code just enough to pass the unit test.
-    4. Rerun functional tests to see if they pass or get a little further. Iterate the steps 2-4 until the functional test passes.
-* TDD unit-test/code cycle:
-    1. Run the unit tests and see how they fail.
-    2. Make a minimal code change to address the current test failure.
-    3. Repeat the steps 1. and 2. until the unit tests pass.
+* TDD process with functional and unit tests:
+    * [F1] Write a functional test, describing the new functionality from the user's point of view. Proceed with [F2] and see the test failing.
+    * [F2] Run the functional test, does it pass? If yes, go to [F4]. If no, proceed with [F3].
+    * [F3] Mini-TDD cycle with unit tests:
+        * [U1] Write unit test(s) - think how to write code that can get the functional test to pass the current failure, and write one or more unit tests to define how the code should behave. Proceed with [U2] and see the unit tests failing.
+        * [U2] TDD Unit-test/code cycle:
+            * [UC1] Run the unit tests, do they pass? If yes, finish the unit-test/code cycle and go to [U3]. If no, proceed with [UC2].
+            * [UC2] Write some minimal code to get it a little further. Go to [UC1].
+        * [U3] Need refactoring? If yes, go to [UC2]. If not finish the mini-TDD cycle and go back to [F2].
+    * [F4] Need refactoring? If yes, go back to [F3]. If no, finish or go back to [F1].
 
 #### Functional tests = Acceptance tests = End-to-end tests
 * Functional tests should help building an application with the right functionality, and guarantee that will never be accidentally broken.
@@ -114,6 +114,12 @@ The test runner is invoked by executing:
 $ python manage.py test
 ```
 
+#### Security
+* CSRF protection:
+    * Integrated protection that involves placing an auto-generated token into each generated form, to be able to identify POST requests as having come from the original site.
+    * The CSRF token can be added by using the template tag {% csrf_token %}.
+    * During template rendering, the tag is substituted with an `<input type="hidden">` containing the CSRF token.
+
 #### Packages
 django.http
 * HttpRequest - a class which object captures what Django sees when a user’s browser asks for a page.
@@ -152,3 +158,15 @@ django.urls
     * common
         * keys
             * Keys - a class that allows the use of special keys, such as Enter.
+
+## Recommended Readings
+* [Mark Pilgrim, Dive Into Python](http://www.diveintopython.net/)
+* [Zed A. Shaw, Learn Python the Hard Way](http://learnpythonthehardway.org/)
+* [Al Sweigart, Invent Your Own Computer Games with Python](http://inventwithpython.com)
+* Kent Beck, Test Driven Development: By Example, Addison-Wesley
+* Martin Fowler, Refactoring, Addison-Wesley
+* [Ross Anderson, Security Engineering, Second Edition, Addison-Wesley](http://www.cl.cam.ac.uk/~rja14/book.html). First edition is freely available in [PDF](http://www.cl.cam.ac.uk/~rja14/musicfiles/manuscripts/SEv1.pdf)
+* Douglas Crockford, JavaScript: The Good Parts, O’Reilly
+* [Daniel Greenfeld and Audrey Roy, Two Scoops of Django](http://twoscoopspress.com/products/two-scoops-of-django-1-6)
+* [Emily Bache, Mocks, Fakes and Stubs](https://leanpub.com/mocks-fakes-stubs)
+* Steve Freeman and Nat Pryce, Growing Object-Oriented Software Guided by Tests, Addison-Wesley
