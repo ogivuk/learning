@@ -33,6 +33,10 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
             * [UC2] Write some minimal code to get it a little further. Go to [UC1].
         * [U3] Need refactoring? If yes, go to [UC2]. If not finish the mini-TDD cycle and go back to [F2].
     * [F4] Need refactoring? If yes, go back to [F3]. If no, finish or go back to [F1].
+* TDD Unit-test/code cycle is also known as Red, Green, Refactor:
+    * Start by writing a unit test which fails (Red).
+    * Write the simplest possible code to get it to pass (Green), even if that means cheating.
+    * Refactor to get to better code that makes more sense.
 
 #### Functional tests = Acceptance tests = End-to-end tests
 * Functional tests should help building an application with the right functionality, and guarantee that will never be accidentally broken.
@@ -53,9 +57,9 @@ In Python:
 * Module `unittest`, needs to be imported as `import unittest`
 * Tests are organised into classes, which inherit from `unittest.TestCase`.
 * Any method whose name starts with test is a test method, and will be run by the test runner.
-* setUp and tearDown are special methods which get run before and after each test (even if unsuccessful).
-* `self.fail` fails no matter what with the given error message.
-* Some additional `unittest` helper functions for test assertions: `assertEqual`, `assertTrue`, `assertFalse`.
+* `setUp()` and `tearDown()` are special methods which get run before and after each test (even if unsuccessful).
+* `self.fail(...)` fails no matter what with the given error message.
+* Some additional `unittest` helper functions for test assertions: `self.assertEqual(...)`, `self.assertTrue(...)`, `self.assertFalse(...)`.
 * If called from command line, the `unittest` test runner can be launched by calling `unittest.main()` within `if __name__ == '__main__'`.
 
 #### Refactoring
@@ -65,6 +69,9 @@ In Python:
 * If both code and tests need to be refactored:
     1. First, the code should be refactored until all (old) tests are still passing.
     2. Then, the tests can be refactored until they all pass.
+* Refactoring should:
+    * eliminate duplication: if tests uses a magic constant, and the application code also uses it, that counts as duplication and justifies refactoring - removing the magic constant from the application code.
+    * do triangulation: if tests allow "cheating" code to pass, like returning a magic constant, another test should be written that forces some better code to be written.
 
 ### Django
 Django’s workflow:
@@ -120,21 +127,28 @@ $ python manage.py test
     * The CSRF token can be added by using the template tag {% csrf_token %}.
     * During template rendering, the tag is substituted with an `<input type="hidden">` containing the CSRF token.
 
+#### Python Variables to Be Rendered in Templates
+* Variables can be added to HTML templates with the notation: `{{ variable }}`
+
 #### Packages
 django.http
 * HttpRequest - a class which object captures what Django sees when a user’s browser asks for a page.
+    * method - contains the information about the request method, e.g., GET, POST.
+    * POST - a variable that is a dictionary which contains the POST request variable=value pairs.
+        * get(_key_[,_default_]) - a function that returns the value for the given key, if it exists, and _default_ value if it does not exist.
 * HttpResponse - a class which object is a response of view function.
     * content - the content of the response in raw bytes that would be sent down the wire to the user’s browser.
         * decode(_encoding_) - a function that converts the raw content into the string of HTML that’s being sent to the user.
 
 django.shortcuts
-* render(HttpRequest, _templateName_) - a function that renders the given template and returns a HttpResponse.
+* render(HttpRequest, _templateName_, _variables_) - a function that renders the given template with the given variables (as a dictionary) and returns a HttpResponse.
 
 django.test
 * TestCase - a class to be inherited when creating unit tests.
     * assertTemplateUsed(_response_, _templateName_) - a function that asserts if the response, returned by the test client, corresponds to the given template.
 * Client - a class that acts as a dummy Web browser used to test views, if the correct template is being rendered.
-    * get(_URL_to_be_tested_) - a function that takes a URL, resolves it via views, and returns a HttpResponse
+    * get(_URL_) - a function that takes a URL, resolves it via views, and returns a HttpResponse.
+    * post(_URL_, _data_) - a function that submits a POST request for a given URL with the given data, and returns a HttpResponse.
 
 django.template
 * loader
