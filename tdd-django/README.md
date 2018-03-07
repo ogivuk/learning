@@ -69,9 +69,10 @@ In Python:
 * If both code and tests need to be refactored:
     1. First, the code should be refactored until all (old) tests are still passing.
     2. Then, the tests can be refactored until they all pass.
-* Refactoring should:
-    * eliminate duplication: if tests uses a magic constant, and the application code also uses it, that counts as duplication and justifies refactoring - removing the magic constant from the application code.
-    * do triangulation: if tests allow "cheating" code to pass, like returning a magic constant, another test should be written that forces some better code to be written.
+* Refactoring should prevent "cheating" code to pass:
+    * Triangulation technique: if tests allow "cheating" code to pass, like returning a magic constant, another test should be written that forces some better code to be written.
+* Don't Repeat Yourself (DRY) and Three Strikes and Refactor
+    * Code can be copy/pasted once, and it may be premature to try to remove the duplication it causes, but once there are three occurrences, it’s time to remove duplication.
 
 ### Django
 Django’s workflow:
