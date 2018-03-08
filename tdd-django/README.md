@@ -244,6 +244,7 @@ django.shortcuts
 
 django.test
 * TestCase - a class to be inherited when creating unit tests.
+    * assertContains(_response_, _string_) - a function that asserts if the given string is in the given response.
     * assertTemplateUsed(_response_, _templateName_) - a function that asserts if the response, returned by the test client, corresponds to the given template.
 * Client - a class that acts as a dummy Web browser used to test views, if the correct template is being rendered.
     * get(_URL_) - a function that takes a URL, resolves it via views, and returns a HttpResponse.
