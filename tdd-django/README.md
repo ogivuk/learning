@@ -52,6 +52,13 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
 * Every single code change should be driven by the tests.
 * Unit tests are about testing logic, flow control, and configuration.
     * Do not test constants, e.g., HTML strings.
+* Each unit test should only test one thing.
+    * Makes it easier to track down bugs.
+    * With multiple assertions in a test: if the test fails on an early assertion, the status of the later assertions is unknown.
+* Unit test structure:
+    * Code for the test setup.
+    * Code that does the exercise.
+    * Assert(s).
 
 In Python:
 * Module `unittest`, needs to be imported as `import unittest`
@@ -88,6 +95,7 @@ $ django-admin.py startproject <project name> .
 File structure:
 * settings.py - contains the settings of the project.
     * List of registered apps for the project.
+    * Specifications for the used database(s) in the project.
 * urls.py - contains mapping from URLs to view functions for the whole site. 
 
 #### manage.py
@@ -96,6 +104,8 @@ Can be used to:
 * Run a development server: ```$ python manage.py runserver```
 * Invoke test runner: ```$ python manage.py test [appName]```
 * Build a database migration: ```$ python manage.py makemigrations```
+* Execute a database migration: ```$ python manage.py migrate```
+    * Recreate a fresh and empty database: ```$ python manage.py migrate --noinput```
 
 #### Apps
 * Structuring code into apps is a good practice with Django.
@@ -114,11 +124,12 @@ File and folder structure:
 * templates/ - contains the templates for rendering. Not initially created, but Django searches this directory for templates by default.
 * models.py - contains the models that map to data stored in a database.
 * tests.py - contains the unit tests for the app.
-* views.py - contains the views, which are functions that render templates, called when resolving URLs.
+* views.py - contains the views, which are functions that render templates, called when resolving URLs. A view function processes user input and returns an appropriate response.
 
 #### Unit Tests
 * Django has `TestCase`, an augmented version of the standard `unittest`.
 * TestCase has some additional Django-specific features.
+    * Creates a special test database for unit tests.
 
 The test runner is invoked by executing:
 ```
@@ -131,10 +142,16 @@ $ python manage.py test [appName]
     * The CSRF token can be added by using the template tag {% csrf_token %}.
     * During template rendering, the tag is substituted with an `<input type="hidden">` containing the CSRF token.
 
-#### Python Variables to Be Rendered in Templates
-* Variables can be added to HTML templates with the notation: `{{ variable }}`
+#### Template Syntax
+* Python Variables can be added to HTML templates with the notation: `{{ variable }}`
+    * `{{ forloop.counter }}` - a built in variable that indicates the current value of the for loop counter.
+* Commands can be added to HTML templates with the notation: `{% command %}`
+    * `{% for .. in .. %}` - used for iterating through lists.
+        * `{% endfor %}` - indicates the end of the for loop.
+    * `{% csrf_token %}` - inserts a CSRF token.
 
 #### Storing Data - Working with Databases
+
 ##### Django Object-Relational Mapper (ORM)
 * Models the database - a layer of abstraction for data stored in a database with tables, rows, and columns.
 * Allows to work with databases using familiar object-oriented metaphors:
@@ -148,12 +165,20 @@ $ python manage.py test [appName]
         3. Calling a .save() function of the object.
     * Querying the database:
         * Using the class attribute .objects, e.g., .objects.all() to retrieve all the records for that table.
+
 ##### Migrations
 * In charge of actually building the database.
 * Give the ability to add and remove tables and columns, based on the models.py files.
 * Can be seen as a version control system for the database.
     * Particularly useful when there is a need to upgrade a database that’s deployed on a live server.
-* Database migration can be built by executing ```$ python manage.py makemigrations```
+* Database migration can be built by running ```$ python manage.py makemigrations```
+* Database migrations can be executed by running ```$ python manage.py migrate```
+    * Database can be recreated fresh and empty by running ```$ python manage.py migrate --noinput```
+
+##### Database Configuration
+* The database configuration is in the settings.py file.
+* 'ENGINE' specifies the type of database
+* 'NAME' specifies the name, with the full path, of the database file.
 
 #### Packages
 django.db
@@ -161,6 +186,11 @@ django.db
     * Model - a class to be inherited when creating a model for storing data in a database. Classes that inherit map to tables in the databases.
         * save() - saves the record in the database.
         * id - auto-generated id attribute, which is a primary key column.
+        * objects - a class attribute
+            * all() - a function that retrieves all the records for the modeled table (for the instantiated class).
+            * count() - a function that retrieves the number of records in the modeled table. The same as .all().count().
+            * create(_variable_=_value_) - a function that is creating a new record in the modeled table with the given variable values. The same as creating an object and calling save().
+            * first() - a function that retrieves the first record in the modeled table. The same as objects.all()[0].
     * TextField(_defaultValue_), IntegerField(), CharField(), DateField() - field types.
 
 django.http
@@ -174,6 +204,7 @@ django.http
 
 django.shortcuts
 * render(HttpRequest, _templateName_, _variables_) - a function that renders the given template with the given variables (as a dictionary) and returns a HttpResponse.
+* redirect(_URL_) - a function that does a redirect. Particularly used after processing a POST request, when following the Post/Redirect/Get (PRG) design pattern.
 
 django.test
 * TestCase - a class to be inherited when creating unit tests.
