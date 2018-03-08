@@ -38,6 +38,14 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
     * Write the simplest possible code to get it to pass (Green), even if that means cheating.
     * Refactor to get to better code that makes more sense.
 * Regression is when new code breaks some aspect of the application which used to work.
+* Best practices:
+    * Ensuring test isolation and managing global state
+        * Different tests shouldn’t affect one another.
+        * Any permanent state needs to be reset at the end of each test.
+    * Avoid explicit sleeps, e.g., time.sleep
+        * The length of waiting time is just a guess: either too short and vulnerable to spurious failures, or too long and it’ll slow down our test runs.
+        * Do not rely on Selenium’s implicit waits - the implementation varies between browsers, and it seems highly unreliable.
+        * Prefer a retry loop that polls the app and moves on as soon as possible.
 
 #### Functional tests = Acceptance tests = End-to-end tests
 * Functional tests should help building an application with the right functionality, and guarantee that will never be accidentally broken.
@@ -231,6 +239,9 @@ django.urls
 * resolve - an internal function used to resolve URLs and find what view function they should map to.
 
 ### Selenium
+* common
+    * exceptions
+        * WebDriverException - an exception raised by Selenium, e.g., when the page hasn’t loaded or Selenium can’t find an element on the page.
 * webdriver - used to open a web browser.
     * Firefox() - opens the Firefox web browser.
         * get() - opens the web page on the given URL.
