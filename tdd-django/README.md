@@ -37,6 +37,7 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
     * Start by writing a unit test which fails (Red).
     * Write the simplest possible code to get it to pass (Green), even if that means cheating.
     * Refactor to get to better code that makes more sense.
+* Regression is when new code breaks some aspect of the application which used to work.
 
 #### Functional tests = Acceptance tests = End-to-end tests
 * Functional tests should help building an application with the right functionality, and guarantee that will never be accidentally broken.
@@ -172,7 +173,8 @@ $ python manage.py test [appName]
 * Can be seen as a version control system for the database.
     * Particularly useful when there is a need to upgrade a database that’s deployed on a live server.
 * Database migration can be built by running ```$ python manage.py makemigrations```
-* Database migrations can be executed by running ```$ python manage.py migrate```
+    * The migrations are applied automatically to the test database.
+* Database migrations for the real database can be executed by running ```$ python manage.py migrate```
     * Database can be recreated fresh and empty by running ```$ python manage.py migrate --noinput```
 
 ##### Database Configuration
