@@ -94,7 +94,8 @@ File structure:
 * `manage.py` is Django’s Swiss Army knife.
 Can be used to:
 * Run a development server: ```$ python manage.py runserver```
-* Invoke test runner: ```$ python manage.py test```
+* Invoke test runner: ```$ python manage.py test [appName]```
+* Build a database migration: ```$ python manage.py makemigrations```
 
 #### Apps
 * Structuring code into apps is a good practice with Django.
@@ -109,7 +110,9 @@ Registering the app with the project:
 * in the project's `settings.py`, add `<app name>` into the `INSTALLED_APPS` variable.
 
 File and folder structure:
+* migrations/ - contains the database migrations files.
 * templates/ - contains the templates for rendering. Not initially created, but Django searches this directory for templates by default.
+* models.py - contains the models that map to data stored in a database.
 * tests.py - contains the unit tests for the app.
 * views.py - contains the views, which are functions that render templates, called when resolving URLs.
 
@@ -119,7 +122,7 @@ File and folder structure:
 
 The test runner is invoked by executing:
 ```
-$ python manage.py test
+$ python manage.py test [appName]
 ```
 
 #### Security
@@ -131,7 +134,35 @@ $ python manage.py test
 #### Python Variables to Be Rendered in Templates
 * Variables can be added to HTML templates with the notation: `{{ variable }}`
 
+#### Storing Data - Working with Databases
+##### Django Object-Relational Mapper (ORM)
+* Models the database - a layer of abstraction for data stored in a database with tables, rows, and columns.
+* Allows to work with databases using familiar object-oriented metaphors:
+    * Classes map to database tables
+    * Attributes map to columns
+    * Individual instance of the class represents a row of data in the database.
+* Database APIs
+    * Creating a new record:
+        1. Create an object
+        2. Assigning some attributes
+        3. Calling a .save() function of the object.
+    * Querying the database:
+        * Using the class attribute .objects, e.g., .objects.all() to retrieve all the records for that table.
+##### Migrations
+* In charge of actually building the database.
+* Give the ability to add and remove tables and columns, based on the models.py files.
+* Can be seen as a version control system for the database.
+    * Particularly useful when there is a need to upgrade a database that’s deployed on a live server.
+* Database migration can be built by executing ```$ python manage.py makemigrations```
+
 #### Packages
+django.db
+* models
+    * Model - a class to be inherited when creating a model for storing data in a database. Classes that inherit map to tables in the databases.
+        * save() - saves the record in the database.
+        * id - auto-generated id attribute, which is a primary key column.
+    * TextField(_defaultValue_), IntegerField(), CharField(), DateField() - field types.
+
 django.http
 * HttpRequest - a class which object captures what Django sees when a user’s browser asks for a page.
     * method - contains the information about the request method, e.g., GET, POST.
