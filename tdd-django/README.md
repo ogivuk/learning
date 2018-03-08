@@ -74,8 +74,12 @@ In Python:
 * Tests are organised into classes, which inherit from `unittest.TestCase`.
 * Any method whose name starts with test is a test method, and will be run by the test runner.
 * `setUp()` and `tearDown()` are special methods which get run before and after each test (even if unsuccessful).
-* `self.fail(...)` fails no matter what with the given error message.
-* Some additional `unittest` helper functions for test assertions: `self.assertEqual(...)`, `self.assertTrue(...)`, `self.assertFalse(...)`.
+* Some `unittest` helper functions for test assertions:
+    * `self.assertEqual(...)`
+    * `self.assertTrue(...)`
+    * `self.assertFalse(...)`
+    * `self.assertRegex(_string_, _regex_)` - checks whether the given string matches the given regex.
+    * `self.fail(...)` - fails no matter what with the given error message.
 * If called from command line, the `unittest` test runner can be launched by calling `unittest.main()` within `if __name__ == '__main__'`.
 
 #### Refactoring
@@ -89,6 +93,22 @@ In Python:
     * Triangulation technique: if tests allow "cheating" code to pass, like returning a magic constant, another test should be written that forces some better code to be written.
 * Don't Repeat Yourself (DRY) and Three Strikes and Refactor
     * Code can be copy/pasted once, and it may be premature to try to remove the duplication it causes, but once there are three occurrences, it’s time to remove duplication.
+
+#### Working Incrementaly
+* A critical TDD technique
+* The existing code should be adapted using an incremental, step-by-step process
+    * Takes from working state to working state.
+* No Big Design Up Front
+    * Aiming for a minimum viable application as soon as possible
+        * the design evolves gradually based on feedback from real-world usage.
+    * Thinking about the design is still required
+        * Blundering ahead without design thinking eventually gets to the right answer, but
+        * little thinking about design gets there faster.
+* YAGNI - "You ain’t gonna need it!"
+    * It hard to resist the urge to build things just because an idea occurred that they might be needed.
+    * Often, no matter how cool, the idea ended up not being used.
+        * Results in a lot of unused code, adding to the complexity of the application.
+    * YAGNI is the mantra for resisting overenthusiastic creative urges.
 
 ### Django
 Django’s workflow:
@@ -244,6 +264,7 @@ django.urls
         * WebDriverException - an exception raised by Selenium, e.g., when the page hasn’t loaded or Selenium can’t find an element on the page.
 * webdriver - used to open a web browser.
     * Firefox() - opens the Firefox web browser.
+        * current_url - a variable containing the current URL as a string.
         * get() - opens the web page on the given URL.
         * find_elements_by_tag_name() - returns a list of elements with the given tag
         * find_element_by_tag_name() - returns an element with the given tag
