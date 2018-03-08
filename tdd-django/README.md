@@ -103,7 +103,7 @@ File structure:
 * `manage.py` is Django’s Swiss Army knife.
 Can be used to:
 * Run a development server: ```$ python manage.py runserver```
-* Invoke test runner: ```$ python manage.py test [appName]```
+* Invoke test runner: ```$ python manage.py test [appName or PythonPackageDirWithTests]```
 * Build a database migration: ```$ python manage.py makemigrations```
 * Execute a database migration: ```$ python manage.py migrate```
     * Recreate a fresh and empty database: ```$ python manage.py migrate --noinput```
@@ -127,15 +127,21 @@ File and folder structure:
 * tests.py - contains the unit tests for the app.
 * views.py - contains the views, which are functions that render templates, called when resolving URLs. A view function processes user input and returns an appropriate response.
 
-#### Unit Tests
-* Django has `TestCase`, an augmented version of the standard `unittest`.
-* TestCase has some additional Django-specific features.
-    * Creates a special test database for unit tests.
-
-The test runner is invoked by executing:
-```
-$ python manage.py test [appName]
-```
+#### Testing Tools
+* Unit Testing
+    * Django has `TestCase`, an augmented version of the standard `unittest`.
+    * TestCase has some additional Django-specific features.
+        * Creates a special test database for unit tests.
+            * Reset before each individual test is run.
+            * Throw away at the end.
+    * The test runner is invoked by executing: ```$ python manage.py test [appName]```
+* Functional Testing
+    * `LiveServerTestCase` class
+        * Automatically creates a test database (just like in a unit test run)
+        * Automatically starts up a development server for the functional tests to run against.
+    * The test runner is invoked by executing: ```$python manage.py test [folder_with_functional_tests]```
+        * The folder with the functional tests needs to be a valid Python package directory (i.e., with a `___init___.py` in it).
+        * The test runner will find any files whose name begins with test.
 
 #### Security
 * CSRF protection:
@@ -214,6 +220,8 @@ django.test
 * Client - a class that acts as a dummy Web browser used to test views, if the correct template is being rendered.
     * get(_URL_) - a function that takes a URL, resolves it via views, and returns a HttpResponse.
     * post(_URL_, _data_) - a function that submits a POST request for a given URL with the given data, and returns a HttpResponse.
+* LiveServerTestCase - a class to be inherited when creating functional tests.
+    * live_server_url - an attribute that holds the URL of the LiveServerTestCase web server.
 
 django.template
 * loader
