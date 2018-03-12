@@ -153,6 +153,7 @@ File and folder structure:
 * templates/ - contains the templates for rendering. Not initially created, but Django searches this directory for templates by default.
 * models.py - contains the models that map to data stored in a database.
 * tests.py - contains the unit tests for the app.
+* urls.py - contains mapping from URLs to view functions for the app, to make it more contained. It needs to be included in the project's urls.py.
 * views.py - contains the views, which are functions that render templates, called when resolving URLs. A view function processes user input and returns an appropriate response.
 
 #### Testing Tools
@@ -221,6 +222,11 @@ File and folder structure:
 * 'NAME' specifies the name, with the full path, of the database file.
 
 #### Packages
+django.conf
+* urls
+    * include - a function used to include urls.py from another application, e.g., in the top project.
+    * url - a function used to map a part of requested URL to an appropriate view. It is used in the urls.py.
+
 django.db
 * models
     * Model - a class to be inherited when creating a model for storing data in a database. Classes that inherit map to tables in the databases.
