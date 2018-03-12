@@ -246,6 +246,7 @@ django.test
 * TestCase - a class to be inherited when creating unit tests.
     * assertContains(_response_, _string_) - a function that asserts if the given string is in the given response.
     * assertTemplateUsed(_response_, _templateName_) - a function that asserts if the response, returned by the test client, corresponds to the given template.
+    * assertRedirects(_response_, _URL_) - a function that asserts if the response redirects to the given URL.
 * Client - a class that acts as a dummy Web browser used to test views, if the correct template is being rendered.
     * get(_URL_) - a function that takes a URL, resolves it via views, and returns a HttpResponse.
     * post(_URL_, _data_) - a function that submits a POST request for a given URL with the given data, and returns a HttpResponse.
@@ -278,6 +279,12 @@ django.urls
     * common
         * keys
             * Keys - a class that allows the use of special keys, such as Enter.
+
+### Web Design
+#### REST
+* Representational State Transfer (REST) is an approach to web design that’s usually used to guide the design of web-based APIs.
+* REST suggests to have a URL structure that matches the data structure
+* A convention: URLs without a trailing slash are "action" URLs which modify the database.
 
 ## Recommended Readings
 * [Mark Pilgrim, Dive Into Python](http://www.diveintopython.net/)
