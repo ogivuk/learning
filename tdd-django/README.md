@@ -210,6 +210,10 @@ File and folder structure:
     * The migrations are applied automatically to the test database.
 * Database migrations for the real database can be executed by running ```$ python manage.py migrate```
     * Database can be recreated fresh and empty by running ```$ python manage.py migrate --noinput```
+* Deleting migrations is dangerous, but it is needed sometimes when making changes to the models code.
+    * Deleting a migration that’s already been applied to a database somewhere should not be done: Django will be confused about what state it’s in, and how to apply future migrations.
+    * A migration should be deleted only if it hasn’t been used.
+    * A good rule is to never delete or modify a migration that’s already been committed to the VCS.
 
 ##### Database Configuration
 * The database configuration is in the settings.py file.
@@ -228,6 +232,7 @@ django.db
             * create(_variable_=_value_) - a function that is creating a new record in the modeled table with the given variable values. The same as creating an object and calling save().
             * first() - a function that retrieves the first record in the modeled table. The same as objects.all()[0].
     * TextField(_defaultValue_), IntegerField(), CharField(), DateField() - field types.
+    * ForeignKey(_Model_, _on\_delete_) - creates a Foreign Key connection between the two Model based classes: in the _self_ one towards the given one
 
 django.http
 * HttpRequest - a class which object captures what Django sees when a user’s browser asks for a page.
