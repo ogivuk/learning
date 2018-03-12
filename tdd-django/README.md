@@ -231,6 +231,10 @@ django.db
             * count() - a function that retrieves the number of records in the modeled table. The same as .all().count().
             * create(_variable_=_value_) - a function that is creating a new record in the modeled table with the given variable values. The same as creating an object and calling save().
             * first() - a function that retrieves the first record in the modeled table. The same as objects.all()[0].
+            * get(id=_searched\_id_) - a function that returns the entry with the given id.
+            * filter(_criterion_) - function that returns objects that satisfy the criterion.
+        * _object_\_all -  a reverse lookup, if it has a ForeignKey, that returns all instances of the first model with that ForeignKey.
+            * Supports all functions as objects.
     * TextField(_defaultValue_), IntegerField(), CharField(), DateField() - field types.
     * ForeignKey(_Model_, _on\_delete_) - creates a Foreign Key connection between the two Model based classes: in the _self_ one towards the given one
 
@@ -242,6 +246,7 @@ django.http
 * HttpResponse - a class which object is a response of view function.
     * content - the content of the response in raw bytes that would be sent down the wire to the user’s browser.
         * decode(_encoding_) - a function that converts the raw content into the string of HTML that’s being sent to the user.
+    * context - a dictionary that contains the context being passed into the render function.
 
 django.shortcuts
 * render(HttpRequest, _templateName_, _variables_) - a function that renders the given template with the given variables (as a dictionary) and returns a HttpResponse.
