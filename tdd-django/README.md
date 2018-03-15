@@ -11,6 +11,7 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
    * Django ```sudo pip3 install django```
    * Selenium ```sudo pip3 install --upgrade selenium``` (need to be kept up to date)
        * [Selenium drivers](https://github.com/SeleniumHQ/selenium/blob/master/py/docs/source/index.rst) for browsers
+* [Bootstrap](http://getbootstrap.com/)
 
 
 ## Learning Notes
@@ -154,6 +155,7 @@ Registering the app with the project:
 
 File and folder structure:
 * migrations/ - contains the database migrations files.
+* static/ - contains the static files, such as CSS files.
 * templates/ - contains the templates for rendering. Not initially created, but Django searches this directory for templates by default.
 * models.py - contains the models that map to data stored in a database.
 * tests.py - contains the unit tests for the app.
@@ -182,13 +184,22 @@ File and folder structure:
     * The CSRF token can be added by using the template tag {% csrf_token %}.
     * During template rendering, the tag is substituted with an `<input type="hidden">` containing the CSRF token.
 
-#### Template Syntax
+#### Templates
 * Python Variables can be added to HTML templates with the notation: `{{ variable }}`
     * `{{ forloop.counter }}` - a built in variable that indicates the current value of the for loop counter.
 * Commands can be added to HTML templates with the notation: `{% command %}`
     * `{% for .. in .. %}` - used for iterating through lists.
         * `{% endfor %}` - indicates the end of the for loop.
     * `{% csrf_token %}` - inserts a CSRF token.
+* Inheritance
+    * Common content of multiple templates can be put in a common "superclass" template.
+    * Supperclass template contains markers of the "blocks", which are places where child templates can customize it.
+    * Syntax
+        * `{% extends '_superclassTemplate_.html' %}` - used in a child template to define which supperclass template is being inherited.
+        * `{% block _blockName_ %}`
+            * used in a supperclass template to mark the place which child templates can customize.
+            * used in a child template to define the content to be customized in the supperclass template for that block.
+        * `{% endblock %}` - specifies the end of block.
 
 #### Storing Data - Working with Databases
 
@@ -308,6 +319,12 @@ django.urls
 * Representational State Transfer (REST) is an approach to web design that’s usually used to guide the design of web-based APIs.
 * REST suggests to have a URL structure that matches the data structure
 * A convention: URLs without a trailing slash are "action" URLs which modify the database.
+
+### Bootstrap
+* One of the earliest and most popular CSS frameworks, made by Twitter.
+* Facilitates designing websites for multiple platforms, such as mobile, tablets, desktops, etc.
+* Comes with a plain, uncustomised installation.
+    * Should not be used directly out-of-the-box, at least some minor changes should be made, as ​vanilla Bootstrap is instantly recognisable and a big signal to anyone in the know that no effort was made to style the website. 
 
 ## Recommended Readings
 * [Mark Pilgrim, Dive Into Python](http://www.diveintopython.net/)
