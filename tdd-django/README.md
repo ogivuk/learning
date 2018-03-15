@@ -130,6 +130,7 @@ File structure:
 * settings.py - contains the settings of the project.
     * List of registered apps for the project.
     * Specifications for the used database(s) in the project.
+    * URL prefix to specify which URLs should be treated as requests for static files; it is `/static/` by default.
 * urls.py - contains mapping from URLs to view functions for the whole site. 
 
 #### manage.py
@@ -201,6 +202,12 @@ File and folder structure:
             * used in a child template to define the content to be customized in the supperclass template for that block.
         * `{% endblock %}` - specifies the end of block.
 
+#### Static Files
+* Django, as well as any web server, needs to know two things to deal with static files:
+    * How to tell when a URL request is for a static file vs. an HTML served via a view function.
+        * By defining a URL prefix in settings.py, so that any URLs starting with the prefix should be treated as requests for static files.
+    * Where to find the requested static file.
+
 #### Storing Data - Working with Databases
 
 ##### Django Object-Relational Mapper (ORM)
@@ -241,6 +248,11 @@ django.conf
 * urls
     * include - a function used to include urls.py from another application, e.g., in the top project.
     * url - a function used to map a part of requested URL to an appropriate view. It is used in the urls.py.
+
+django.contrib
+* staticfiles
+    * testing
+        * StaticLiveServerTestCase - class derived from django.test.LiveServerTestCase with the ability to transparently serve all the (static) assets during execution of the tests.
 
 django.db
 * models
