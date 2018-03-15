@@ -46,6 +46,9 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
         * The length of waiting time is just a guess: either too short and vulnerable to spurious failures, or too long and it’ll slow down our test runs.
         * Do not rely on Selenium’s implicit waits - the implementation varies between browsers, and it seems highly unreliable.
         * Prefer a retry loop that polls the app and moves on as soon as possible.
+    * Do not test:
+        * Constants
+        * Aesthetics, it is similar as testing a constant. However, the implementation of the aesthetics should be tested, e.g., testing that a CSS file loads.
 
 #### Functional tests = Acceptance tests = End-to-end tests
 * Functional tests should help building an application with the right functionality, and guarantee that will never be accidentally broken.
@@ -76,6 +79,7 @@ In Python:
 * `setUp()` and `tearDown()` are special methods which get run before and after each test (even if unsuccessful).
 * Some `unittest` helper functions for test assertions:
     * `self.assertEqual(...)`
+    * `self.assertAlmostEqual(_value1_, _value2_,...)`
     * `self.assertTrue(...)`
     * `self.assertFalse(...)`
     * `self.assertRegex(_string_, _regex_)` - checks whether the given string matches the given regex.
@@ -268,6 +272,7 @@ django.test
     * post(_URL_, _data_) - a function that submits a POST request for a given URL with the given data, and returns a HttpResponse.
 * LiveServerTestCase - a class to be inherited when creating functional tests.
     * live_server_url - an attribute that holds the URL of the LiveServerTestCase web server.
+    * set_window_size(_width_, _height_) - a function that sets the window size of the test browser to the given values.
 
 django.template
 * loader
@@ -290,6 +295,8 @@ django.urls
         * find_element_by_id() - returns an element with the given id
             * text - the text content of the element
             * get_attribute()
+            * location - contains the location cordinates of the element as a dictionary (['x'], ['y']).
+            * size - contains the size of the element as a dictionary (['width'], ['height'])
             * send_keys() - typing into input elements the given content, can also send keys (e.g., Keys.ENTER)
         * quit() - closes the web browser.
     * common
