@@ -141,6 +141,8 @@ Can be used to:
 * Build a database migration: ```$ python manage.py makemigrations```
 * Execute a database migration: ```$ python manage.py migrate```
     * Recreate a fresh and empty database: ```$ python manage.py migrate --noinput```
+* Gather all static files from various app folders: ```$ python manage.py collectstatic```
+    * The destination folder is defined in settings.py as STATIC_ROOT.
 
 #### Apps
 * Structuring code into apps is a good practice with Django.
@@ -175,6 +177,10 @@ File and folder structure:
     * `LiveServerTestCase` class
         * Automatically creates a test database (just like in a unit test run)
         * Automatically starts up a development server for the functional tests to run against.
+    * `StaticLiveServerTestCase` class
+        * Subclass of `LiveServerTestCase` class
+        * Transparently serve all the assets during execution of the tests, incl. static files.
+        * Similar to running a development web server with DEBUG = True.
     * The test runner is invoked by executing: ```$python manage.py test [folder_with_functional_tests]```
         * The folder with the functional tests needs to be a valid Python package directory (i.e., with a `___init___.py` in it).
         * The test runner will find any files whose name begins with test.
@@ -207,6 +213,13 @@ File and folder structure:
     * How to tell when a URL request is for a static file vs. an HTML served via a view function.
         * By defining a URL prefix in settings.py, so that any URLs starting with the prefix should be treated as requests for static files.
     * Where to find the requested static file.
+* Django should not be used to serve static content on a production web server
+    * Using Python to serve raw files is slow and inefficient
+    * Web servers like Apache or Nginx can serve the static files.
+* Gathering all static files for deployment
+    * All static files should be gather up from inside various app folders, and copied into a single location, ready for deployment.
+    * This can be done using the `collectstatic` command.
+    * The destination folder, where the collected static files go, is defined in settings.py as `STATIC_ROOT`.
 
 #### Storing Data - Working with Databases
 
@@ -349,3 +362,4 @@ django.urls
 * [Daniel Greenfeld and Audrey Roy, Two Scoops of Django](http://twoscoopspress.com/products/two-scoops-of-django-1-6)
 * [Emily Bache, Mocks, Fakes and Stubs](https://leanpub.com/mocks-fakes-stubs)
 * Steve Freeman and Nat Pryce, Growing Object-Oriented Software Guided by Tests, Addison-Wesley
+* [How to Customize Twitter's Bootstrap](https://coding.smashingmagazine.com/2013/03/customizing-bootstrap/)
