@@ -24,32 +24,34 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
     * No need to worry about forgetting what to do next - ​just rerun the tests and they will tell what you need to work on.
     * "TDD is there to help us out when we’re tired and not so smart".
 * Functional tests drive the development at a high level, while the unit tests drive it at a low level.
-* TDD process with functional and unit tests:
-    * [F1] Write a functional test, describing the new functionality from the user's point of view. Proceed with [F2] and see the test failing.
-    * [F2] Run the functional test, does it pass? If yes, go to [F4]. If no, proceed with [F3].
-    * [F3] Mini-TDD cycle with unit tests:
-        * [U1] Write unit test(s) - think how to write code that can get the functional test to pass the current failure, and write one or more unit tests to define how the code should behave. Proceed with [U2] and see the unit tests failing.
-        * [U2] TDD Unit-test/code cycle:
-            * [UC1] Run the unit tests, do they pass? If yes, finish the unit-test/code cycle and go to [U3]. If no, proceed with [UC2].
-            * [UC2] Write some minimal code to get it a little further. Go to [UC1].
-        * [U3] Need refactoring? If yes, go to [UC2]. If not finish the mini-TDD cycle and go back to [F2].
-    * [F4] Need refactoring? If yes, go back to [F3]. If no, finish or go back to [F1].
+
+#### TDD process with functional and unit tests:
+* [F1] Write a functional test, describing the new functionality from the user's point of view. Proceed with [F2] and see the test failing.
+* [F2] Run the functional test, does it pass? If yes, go to [F4]. If no, proceed with [F3].
+* [F3] Mini-TDD cycle with unit tests:
+    * [U1] Write unit test(s) - think how to write code that can get the functional test to pass the current failure, and write one or more unit tests to define how the code should behave. Proceed with [U2] and see the unit tests failing.
+    * [U2] TDD Unit-test/code cycle:
+        * [UC1] Run the unit tests, do they pass? If yes, finish the unit-test/code cycle and go to [U3]. If no, proceed with [UC2].
+        * [UC2] Write some minimal code to get it a little further. Go to [UC1].
+    * [U3] Need refactoring? If yes, go to [UC2]. If not finish the mini-TDD cycle and go back to [F2].
+* [F4] Need refactoring? If yes, go back to [F3]. If no, finish or go back to [F1].
 * TDD Unit-test/code cycle is also known as Red, Green, Refactor:
     * Start by writing a unit test which fails (Red).
     * Write the simplest possible code to get it to pass (Green), even if that means cheating.
     * Refactor to get to better code that makes more sense.
 * Regression is when new code breaks some aspect of the application which used to work.
-* Best practices:
-    * Ensuring test isolation and managing global state
-        * Different tests shouldn’t affect one another.
-        * Any permanent state needs to be reset at the end of each test.
-    * Avoid explicit sleeps, e.g., time.sleep
-        * The length of waiting time is just a guess: either too short and vulnerable to spurious failures, or too long and it’ll slow down our test runs.
-        * Do not rely on Selenium’s implicit waits - the implementation varies between browsers, and it seems highly unreliable.
-        * Prefer a retry loop that polls the app and moves on as soon as possible.
-    * Do not test:
-        * Constants
-        * Aesthetics, it is similar as testing a constant. However, the implementation of the aesthetics should be tested, e.g., testing that a CSS file loads.
+
+#### Best practices:
+* Ensuring test isolation and managing global state
+    * Different tests shouldn’t affect one another.
+    * Any permanent state needs to be reset at the end of each test.
+* Avoid explicit sleeps, e.g., time.sleep
+    * The length of waiting time is just a guess: either too short and vulnerable to spurious failures, or too long and it’ll slow down our test runs.
+    * Do not rely on Selenium’s implicit waits - the implementation varies between browsers, and it seems highly unreliable.
+    * Prefer a retry loop that polls the app and moves on as soon as possible.
+* Do not test:
+    * Constants
+    * Aesthetics, it is similar as testing a constant. However, the implementation of the aesthetics should be tested, e.g., testing that a CSS file loads.
 
 #### Functional tests = Acceptance tests = End-to-end tests
 * Functional tests should help building an application with the right functionality, and guarantee that will never be accidentally broken.
@@ -79,6 +81,7 @@ In Python:
 * Any method whose name starts with test is a test method, and will be run by the test runner.
 * `setUp()` and `tearDown()` are special methods which get run before and after each test (even if unsuccessful).
 * Some `unittest` helper functions for test assertions:
+    * `self.assertIn(_string1_, _string2_)` - checks if `string1` is contained in `string2`.
     * `self.assertEqual(...)`
     * `self.assertAlmostEqual(_value1_, _value2_,...)`
     * `self.assertTrue(...)`
@@ -260,7 +263,7 @@ File and folder structure:
 django.conf
 * urls
     * include - a function used to include urls.py from another application, e.g., in the top project.
-    * url - a function used to map a part of requested URL to an appropriate view. It is used in the urls.py.
+    * url - a function used to map a part of requested URL to an appropriate view. It is used in the urls.py. It’s likely to be deprecated in a future release.
 
 django.contrib
 * staticfiles
@@ -316,6 +319,10 @@ django.template
 
 django.urls
 * resolve - an internal function used to resolve URLs and find what view function they should map to.
+* path(_route_, _view_, kwargs=None, name=None) - a function used to map the _route_ URL to an appropriate view. It is used in the urls.py.
+* re_path(_route_, _view_, kwargs=None, name=None) - a function used to map a part of URL formulated as a RegEx expression _route_ to an appropriate view. It is used in the urls.py.
+
+Key difference between path and re_path is that path uses route without regex 
 
 ### Selenium
 * common
@@ -325,6 +332,7 @@ django.urls
     * Firefox() - opens the Firefox web browser.
         * current_url - a variable containing the current URL as a string.
         * get() - opens the web page on the given URL.
+        * title - a variable containing the title of the opened webpage.
         * find_elements_by_tag_name() - returns a list of elements with the given tag
         * find_element_by_tag_name() - returns an element with the given tag
         * find_elements_by_id() - returns a list of elements with the given id
