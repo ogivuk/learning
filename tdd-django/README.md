@@ -89,6 +89,7 @@ In Python:
     * `self.assertRegex(_string_, _regex_)` - checks whether the given string matches the given regex.
     * `self.fail(...)` - fails no matter what with the given error message.
 * If called from command line, the `unittest` test runner can be launched by calling `unittest.main()` within `if __name__ == '__main__'`.
+    * Tests can be run with more detailed information by passing in the verbosity argument: `unittest.main(verbosity=2)`.
 
 #### Refactoring
 * Improving the code without changing its functionality.
@@ -123,6 +124,11 @@ Django’s workflow:
 1. An HTTP request comes in for a particular URL.
 2. Django uses some rules to decide which view function should deal with the request (this is referred to as resolving the URL).
 3. The view function processes the request and returns an HTTP response.
+
+Django uses request and response objects to pass state through the system.
+* When a page is requested, Django creates an HttpRequest object that contains metadata about the request.
+* Then Django loads the appropriate view, passing the HttpRequest as the first argument to the view function.
+* Each view is responsible for returning an HttpResponse object.
 
 #### Projects
 Creating a new project:
@@ -298,7 +304,8 @@ django.http
     * context - a dictionary that contains the context being passed into the render function.
 
 django.shortcuts
-* render(HttpRequest, _templateName_, _variables_) - a function that renders the given template with the given variables (as a dictionary) and returns a HttpResponse.
+* render(HttpRequest, _templateName_, _variables_) - a function that renders the given template with the given variables (as a dictionary).
+    * returns an HttpResponse object.
 * redirect(_URL_) - a function that does a redirect. Particularly used after processing a POST request, when following the Post/Redirect/Get (PRG) design pattern.
 
 django.test
@@ -318,7 +325,10 @@ django.template
     * render_to_string(_templateName_) - a function that renders the given template and returns a string.
 
 django.urls
-* resolve - an internal function used to resolve URLs and find what view function they should map to.
+* resolve(_url_) - an internal function used to resolve URLs to find what view function they should map to.
+    * returns a ResolverMatch object.
+* ResolverMatch - a class that captures various metadata about the resolved URL (by the resolve function).
+    * func - the view function that would be used to serve the URL.
 * path(_route_, _view_, kwargs=None, name=None) - a function used to map the _route_ URL to an appropriate view. It is used in the urls.py.
 * re_path(_route_, _view_, kwargs=None, name=None) - a function used to map a part of URL formulated as a RegEx expression _route_ to an appropriate view. It is used in the urls.py.
 
