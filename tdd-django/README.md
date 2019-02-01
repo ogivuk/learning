@@ -21,7 +21,7 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
 * Do nothing until you have a test! "Test first, test first!".
 * Take one step at the time.
 * TDD can be seen as a way to save progress, take a break, and make sure to never slip backwards.
-    * No need to worry about forgetting what to do next - ​just rerun the tests and they will tell what you need to work on.
+    * No need to worry about forgetting what to do next - just rerun the tests and they will tell what you need to work on.
     * "TDD is there to help us out when we’re tired and not so smart".
 * Functional tests drive the development at a high level, while the unit tests drive it at a low level.
 
@@ -63,7 +63,7 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
 #### Unit Tests
 * Unit tests should help writing code that’s clean and bug free.
 * Unit tests test the application from the inside, from the point of view of the programmer.
-* ​Each line of production code should be tested by (at least) one of unit tests.
+* Each line of production code should be tested by (at least) one of unit tests.
 * Every single code change should be driven by the tests.
 * Unit tests are about testing logic, flow control, and configuration.
     * Do not test constants, e.g., HTML strings.
@@ -367,7 +367,7 @@ Key difference between path and re_path is that path uses route without regex
 * One of the earliest and most popular CSS frameworks, made by Twitter.
 * Facilitates designing websites for multiple platforms, such as mobile, tablets, desktops, etc.
 * Comes with a plain, uncustomised installation.
-    * Should not be used directly out-of-the-box, at least some minor changes should be made, as ​vanilla Bootstrap is instantly recognisable and a big signal to anyone in the know that no effort was made to style the website. 
+    * Should not be used directly out-of-the-box, at least some minor changes should be made, as vanilla Bootstrap is instantly recognisable and a big signal to anyone in the know that no effort was made to style the website. 
 
 ## Recommended Readings
 * [Mark Pilgrim, Dive Into Python](http://www.diveintopython.net/)
