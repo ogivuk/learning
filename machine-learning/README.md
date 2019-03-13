@@ -28,5 +28,3 @@ Examples of unsupervised learning:
 ## Literature
 
 * [Machine Learning by Stanford University on Coursera](https://www.coursera.org/learn/machine-learning)
-
-https://stackoverflow.com/questions/11256433/how-to-show-math-equations-in-general-githubs-markdownnot-githubs-blog
