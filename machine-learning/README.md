@@ -25,6 +25,17 @@ Examples of unsupervised learning:
 * Clustering: cluster given data points into groups that are somehow similar or related by different variables.
 * Non-clustering (Cocktail Party Algorithm): find structure in a chaotic environment.
 
+## Model Representation
+
+Notation:
+
+* $ x^{(i)} $ - input value/feature.
+* $ X $ - space of input values.
+* $ Y $ - space of output values.
+* $ y^{(i)} $ - output variable.
+* $ (x^{(i)},y^{(i)}); i=1,...,m $ - training set with $m$ examples.
+* $ X $ and $ Y $ are 
+
 ## Literature
 
 * [Machine Learning by Stanford University on Coursera](https://www.coursera.org/learn/machine-learning)
