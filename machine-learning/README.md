@@ -29,12 +29,11 @@ Examples of unsupervised learning:
 
 Notation:
 
-* <img src="http://www.sciweavers.org/tex2img.php?eq=%20x%5E%7B%28i%29%7D%20&bc=White&fc=Black&im=jpg&fs=12&ff=modern&edit=0" align="center" border="0" alt=" x^{(i)} " width="25" height="18" /> - input value/feature.
-* $ X $ - space of input values.
-* $ Y $ - space of output values.
-* $ y^{(i)} $ - output variable.
-* $ (x^{(i)},y^{(i)}); i=1,...,m $ - training set with $m$ examples.
-* $ X $ and $ Y $ are 
+<img src="http://www.sciweavers.org/tex2img.php?eq=%20x%5E%7B%28i%29%7D%20&bc=White&fc=Black&im=png&fs=12&ff=modern&edit=0" align="center" border="0" alt="x^{(i)}" width="25" height="18" /> - input variable/feature.
+<img src="http://www.sciweavers.org/tex2img.php?eq=X&bc=White&fc=Black&im=png&fs=12&ff=modern&edit=0" align="center" border="0" alt="X" width="19" height="14" /> - space of input values.
+<img src="http://www.sciweavers.org/tex2img.php?eq=%20y%5E%7B%28i%29%7D%20&bc=White&fc=Black&im=png&fs=12&ff=modern&edit=0" align="center" border="0" alt="y^{(i)}" width="25" height="18" /> - output variable.
+<img src="http://www.sciweavers.org/tex2img.php?eq=Y&bc=White&fc=Black&im=png&fs=12&ff=modern&edit=0" align="center" border="0" alt="Y" width="19" height="14" /> - space of output values.
+* <img src="http://www.sciweavers.org/tex2img.php?eq=%28x%5E%7B%28i%29%7D%2Cy%5E%7B%28i%29%7D%29%3B%20i%3D1%2C...%2Cm&bc=White&fc=Black&im=png&fs=12&ff=modern&edit=0" align="center" border="0" alt="(x^{(i)},y^{(i)}); i=1,...,m" width="156" height="22" /> - training set with **m** examples.
 
 ## Literature
 
