@@ -42,7 +42,7 @@ Notation:
 **Cost function J(θ)** measures the accuracy of our hypothesis function:
 
 * Mean squared error.
-* J(θ) = 1/(2m) ∑ (h_θ(x_i) - y_i)^2 - sum over all *m* examples.
+* $J(θ) = 1/(2m) ∑ (h_θ(x_i) - y_i)^2$ - sum over all *m* examples.
 * The mean is halved (1/2) as a convenience for the computation of the gradient descent.
 * The goal is to minimize the cost function by choosing the best values of θ.
 
