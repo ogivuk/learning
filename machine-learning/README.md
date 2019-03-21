@@ -29,7 +29,7 @@ Examples of unsupervised learning:
 
 Notation:
 
-* $ x^{(i)} $ - input value/feature.
+* <img src="http://www.sciweavers.org/tex2img.php?eq=%20x%5E%7B%28i%29%7D%20&bc=White&fc=Black&im=jpg&fs=12&ff=modern&edit=0" align="center" border="0" alt=" x^{(i)} " width="25" height="18" /> - input value/feature.
 * $ X $ - space of input values.
 * $ Y $ - space of output values.
 * $ y^{(i)} $ - output variable.
@@ -39,3 +39,4 @@ Notation:
 ## Literature
 
 * [Machine Learning by Stanford University on Coursera](https://www.coursera.org/learn/machine-learning)
+* [Latex Equation Editor with Image Embedding](http://www.sciweavers.org/free-online-latex-equation-editor)
