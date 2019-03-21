@@ -25,17 +25,39 @@ Examples of unsupervised learning:
 * Clustering: cluster given data points into groups that are somehow similar or related by different variables.
 * Non-clustering (Cocktail Party Algorithm): find structure in a chaotic environment.
 
-## Model Representation
+## Model
 
 Notation:
 
-* x^(i) - input variable/feature.
+* x_i - input variable/feature.
 * X - space of input values.
-* y^(i) - output variable.
+* y_i - output variable.
 * Y - space of output values.
-* (x^(i),y^(i)); i=1,...,m - training set with *m* examples.
+* (x_i,y_i); i=1,...,m - training set with *m* examples.
+
+**Hypothesis function h(x)** is a predictor for the corresponding value of y for a given x:
+
+* h : X → Y
+
+**Cost function J(θ)** measures the accuracy of our hypothesis function:
+
+* Mean squared error.
+* J(θ) = 1/(2m) ∑ (h_θ(x_i) - y_i)^2 - sum over all *m* examples.
+* The mean is halved (1/2) as a convenience for the computation of the gradient descent.
+* The goal is to minimize the cost function by choosing the best values of θ.
+
+**Gradient Descent** is used to estimate the parameters in the hypothesis function:
+
+* Using derivative (the tangential line to a function) of the cost function.
+* The derivative (slope of the tangent) gives the direction with the steepest descent towards minimizing the cost functions.
+* The algorithm makes steps down the cost function in the direction with the steepest descent, and the size of each step is determined by the parameter α (the learning rate).
+* Depending on where one starts, one could end up at different points in the end.
+* The gradient descent algorithm is to repeat the following until convergence:
+* θ_j := θ_j - α ∂/∂θ_j J(θ), where *j=1..n* represents the feature index number.
+  * At each iteration, one should simultaneously update all parameters θ_j. The derivative for all is done at the same point.
+  * If α is too small, gradient descrent can be slow.
+  * If α is too large, gradient descrent may overshoot the minimum. It can fail to converge, or it can even diverge.
 
 ## Literature
 
 * [Machine Learning by Stanford University on Coursera](https://www.coursera.org/learn/machine-learning)
-* [Latex Equation Editor with Image Embedding](http://www.sciweavers.org/free-online-latex-equation-editor)
