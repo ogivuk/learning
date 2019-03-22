@@ -16,6 +16,10 @@ Supervised learning problems are categorized into regression and classification 
 * Regression problem: predict continuous valued output.
 * Classification problem: predict discrete valued output.
 
+Supervised Learning Problems:
+
+* [Linear Regression](notes/Linear%20Regression.md)
+
 ## Unsupervised Learning
 
 Unsupervised learning is used when there is a need to derive structure from data with little or no idea what the results should look like.
