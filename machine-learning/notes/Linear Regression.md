@@ -28,7 +28,7 @@
 
 ## Finding Parameters
 
-Gradient Descent
+### Gradient Descent
 
 * Algorithm: repeat the following until convergence
   * θ_j := θ_j - α·1/m·∑_{i=1}^{m} (h_θ(x^(i)) - y^(i))·x^(i); for j:=0...n
@@ -49,7 +49,7 @@ Gradient Descent
     * too large α -> J(θ) may not decrease with every iteration, and it may even diverge
     * To choose α, try different numbers such as 0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1
 
-Normal Equation
+### Normal Equation
 
 * Analytical way of calculating the parameters, no iterations.
 * Minimize the cost function J(θ) by setting to zero all its partial derivatives with respect to every θ_j.
@@ -60,3 +60,7 @@ Normal Equation
   * y is a vector of size m containing output values for all training data.
 * There is no need to do feature scaling with the normal equation.
 * Normal Equation is prefered when n is not very large, e.g., n<10000, since the matrix inverse is an expensive operation with the complexity of O(n^3), where n is the size of the matrix.
+* If X^T·X is noninvertible:
+  * It is probably due to redundant features, where two or more features are very close (linearly dependent), or due to too many features (e.g. m ≤ n).
+  * Solutions include deleting a feature that is linearly dependent with another or deleting one or more features when there are too many features.
+  * Use 'pinv' rather than 'inv' in Octave, as 'pinv' gives θ even if X^T·X is not invertible.
