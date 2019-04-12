@@ -16,114 +16,11 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
 
 ## Learning Notes
 
-### TDD
-* TDD does not come naturally, it is more like a discipline.
-* Do nothing until you have a test! "Test first, test first!".
-* Take one step at the time.
-* TDD can be seen as a way to save progress, take a break, and make sure to never slip backwards.
-    * No need to worry about forgetting what to do next - ​just rerun the tests and they will tell what you need to work on.
-    * "TDD is there to help us out when we’re tired and not so smart".
-* Functional tests drive the development at a high level, while the unit tests drive it at a low level.
-
-#### TDD process with functional and unit tests:
-* [F1] Write a functional test, describing the new functionality from the user's point of view. Proceed with [F2] and see the test failing.
-* [F2] Run the functional test, does it pass? If yes, go to [F4]. If no, proceed with [F3].
-* [F3] Mini-TDD cycle with unit tests:
-    * [U1] Write unit test(s) - think how to write code that can get the functional test to pass the current failure, and write one or more unit tests to define how the code should behave. Proceed with [U2] and see the unit tests failing.
-    * [U2] TDD Unit-test/code cycle:
-        * [UC1] Run the unit tests, do they pass? If yes, finish the unit-test/code cycle and go to [U3]. If no, proceed with [UC2].
-        * [UC2] Write some minimal code to get it a little further. Go to [UC1].
-    * [U3] Need refactoring? If yes, go to [UC2]. If not finish the mini-TDD cycle and go back to [F2].
-* [F4] Need refactoring? If yes, go back to [F3]. If no, finish or go back to [F1].
-* TDD Unit-test/code cycle is also known as Red, Green, Refactor:
-    * Start by writing a unit test which fails (Red).
-    * Write the simplest possible code to get it to pass (Green), even if that means cheating.
-    * Refactor to get to better code that makes more sense.
-* Regression is when new code breaks some aspect of the application which used to work.
-
-#### Best practices:
-* Ensuring test isolation and managing global state
-    * Different tests shouldn’t affect one another.
-    * Any permanent state needs to be reset at the end of each test.
-* Avoid explicit sleeps, e.g., time.sleep
-    * The length of waiting time is just a guess: either too short and vulnerable to spurious failures, or too long and it’ll slow down our test runs.
-    * Do not rely on Selenium’s implicit waits - the implementation varies between browsers, and it seems highly unreliable.
-    * Prefer a retry loop that polls the app and moves on as soon as possible.
-* Do not test:
-    * Constants
-    * Aesthetics, it is similar as testing a constant. However, the implementation of the aesthetics should be tested, e.g., testing that a CSS file loads.
-
-#### Functional tests = Acceptance tests = End-to-end tests
-* Functional tests should help building an application with the right functionality, and guarantee that will never be accidentally broken.
-* How the application functions from the user's point of view.
-* A sort of specification of the application.
-* Tracks a *User Story*
-* A human readable story that can be followed.
-
-#### Unit Tests
-* Unit tests should help writing code that’s clean and bug free.
-* Unit tests test the application from the inside, from the point of view of the programmer.
-* ​Each line of production code should be tested by (at least) one of unit tests.
-* Every single code change should be driven by the tests.
-* Unit tests are about testing logic, flow control, and configuration.
-    * Do not test constants, e.g., HTML strings.
-* Each unit test should only test one thing.
-    * Makes it easier to track down bugs.
-    * With multiple assertions in a test: if the test fails on an early assertion, the status of the later assertions is unknown.
-* Unit test structure:
-    * Code for the test setup.
-    * Code that does the exercise.
-    * Assert(s).
-
-In Python:
-* Module `unittest`, needs to be imported as `import unittest`
-* Tests are organised into classes, which inherit from `unittest.TestCase`.
-* Any method whose name starts with test is a test method, and will be run by the test runner.
-* `setUp()` and `tearDown()` are special methods which get run before and after each test (even if unsuccessful).
-* Some `unittest` helper functions for test assertions:
-    * `self.assertIn(_string1_, _string2_)` - checks if `string1` is contained in `string2`.
-    * `self.assertEqual(...)`
-    * `self.assertAlmostEqual(_value1_, _value2_,...)`
-    * `self.assertTrue(...)`
-    * `self.assertFalse(...)`
-    * `self.assertRegex(_string_, _regex_)` - checks whether the given string matches the given regex.
-    * `self.fail(...)` - fails no matter what with the given error message.
-* If called from command line, the `unittest` test runner can be launched by calling `unittest.main()` within `if __name__ == '__main__'`.
-    * Tests can be run with more detailed information by passing in the verbosity argument: `unittest.main(verbosity=2)`.
-
-#### Refactoring
-* Improving the code without changing its functionality.
-* Refactoring should not be done without tests.
-* When refactoring, one should work on either the code or the tests, but not both at once.
-* If both code and tests need to be refactored:
-    1. First, the code should be refactored until all (old) tests are still passing.
-    2. Then, the tests can be refactored until they all pass.
-* Refactoring should prevent "cheating" code to pass:
-    * Triangulation technique: if tests allow "cheating" code to pass, like returning a magic constant, another test should be written that forces some better code to be written.
-* Don't Repeat Yourself (DRY) and Three Strikes and Refactor
-    * Code can be copy/pasted once, and it may be premature to try to remove the duplication it causes, but once there are three occurrences, it’s time to remove duplication.
-
-#### Working Incrementaly
-* A critical TDD technique
-* The existing code should be adapted using an incremental, step-by-step process
-    * Takes from working state to working state.
-* No Big Design Up Front
-    * Aiming for a minimum viable application as soon as possible
-        * the design evolves gradually based on feedback from real-world usage.
-    * Thinking about the design is still required
-        * Blundering ahead without design thinking eventually gets to the right answer, but
-        * little thinking about design gets there faster.
-* YAGNI - "You ain’t gonna need it!"
-    * It hard to resist the urge to build things just because an idea occurred that they might be needed.
-    * Often, no matter how cool, the idea ended up not being used.
-        * Results in a lot of unused code, adding to the complexity of the application.
-    * YAGNI is the mantra for resisting overenthusiastic creative urges.
-
 ### Django
 Django’s workflow:
 1. An HTTP request comes in for a particular URL.
 2. Django uses some rules to decide which view function should deal with the request (this is referred to as resolving the URL).
-3. The view function processes the request and returns an HTTP response.
+3. The view function processes the request and user input, and returns an HTTP response.
 
 Django uses request and response objects to pass state through the system.
 * When a page is requested, Django creates an HttpRequest object that contains metadata about the request.
@@ -197,8 +94,11 @@ File and folder structure:
 #### Security
 * CSRF protection:
     * Integrated protection that involves placing an auto-generated token into each generated form, to be able to identify POST requests as having come from the original site.
-    * The CSRF token can be added by using the template tag {% csrf_token %}.
+    * The CSRF token can be added by using the template tag `{% csrf_token %}`.
     * During template rendering, the tag is substituted with an `<input type="hidden">` containing the CSRF token.
+
+#### Best Practices
+* Always redirect after a POST to prevent duplicate form submissions: Post->Redirect->Get (PRG) web development design pattern.
 
 #### Templates
 * Python Variables can be added to HTML templates with the notation: `{{ variable }}`
@@ -216,6 +116,12 @@ File and folder structure:
             * used in a supperclass template to mark the place which child templates can customize.
             * used in a child template to define the content to be customized in the supperclass template for that block.
         * `{% endblock %}` - specifies the end of block.
+* Rendering
+    * Templates can be rendered using `django.shortcuts.render` or `django.template.loader.render_to_string` functions
+        * The function `django.shortcuts.render` takes a request as its first parameter and the name of the template to render.
+        * The function `django.template.loader.render_to_string` takes the name of the template as its parameter.
+        * Django automatically searches folders called `templates` inside any of the application directories.
+        * Builds and returns an `HttpResponse`, based on the content of the template.
 
 #### Static Files
 * Django, as well as any web server, needs to know two things to deal with static files:
@@ -244,16 +150,25 @@ File and folder structure:
         2. Assigning some attributes
         3. Calling a .save() function of the object.
     * Querying the database:
-        * Using the class attribute .objects, e.g., .objects.all() to retrieve all the records for that table.
+        * Using the class attribute .objects
+            * .objects.all() retrieves all the records for that table.
+            * .objects.count() retrieves the number of entries in the table.
+* Create a new model/database table:
+    * Create a class in `models.py`, inherit from `django.db.models.Model`.
+    * By default, it will get an auto-generated `id` attribute, which will be a primary key column in the database.
+    * Other fields(columns) need to be defined explicitly.
+    * Build the database = run a migration.
+* Relationships between two models/databases:
+    * Use `django.db.models.ForeignKey()` to save the relationship to an object from another class.
 
 ##### Migrations
 * In charge of actually building the database.
 * Give the ability to add and remove tables and columns, based on the models.py files.
 * Can be seen as a version control system for the database.
     * Particularly useful when there is a need to upgrade a database that’s deployed on a live server.
-* Database migration can be built by running ```$ python manage.py makemigrations```
+* Database migration can be built by running ```$ python manage.py makemigrations <app_name>```
     * The migrations are applied automatically to the test database.
-* Database migrations for the real database can be executed by running ```$ python manage.py migrate```
+* Database migrations for the real database can be executed by running ```$ python manage.py migrate <app_name>```
     * Database can be recreated fresh and empty by running ```$ python manage.py migrate --noinput```
 * Deleting migrations is dangerous, but it is needed sometimes when making changes to the models code.
     * Deleting a migration that’s already been applied to a database somewhere should not be done: Django will be confused about what state it’s in, and how to apply future migrations.
@@ -302,6 +217,7 @@ django.http
     * content - the content of the response in raw bytes that would be sent down the wire to the user’s browser.
         * decode(_encoding_) - a function that converts the raw content into the string of HTML that’s being sent to the user.
     * context - a dictionary that contains the context being passed into the render function.
+    * status_code - HTTP response status code
 
 django.shortcuts
 * render(HttpRequest, _templateName_, _variables_) - a function that renders the given template with the given variables (as a dictionary).
