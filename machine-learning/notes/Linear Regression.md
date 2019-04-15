@@ -1,5 +1,8 @@
 # Linear Regression
 
+Linear regression is a great algorithm for regression problems, which aim to predict continuous valued output.
+However, applying linear regression to classification problems is often not a good idea.
+
 ## Model
 
 * Notation:
