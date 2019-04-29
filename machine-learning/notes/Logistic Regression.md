@@ -20,7 +20,7 @@ Hypothesis:
     * where g(z) = 1 / (1 + e<sup>-z</sup>)
     * g(z) is known as Sigmoid function or also as Logistic function, 
     and it maps any real number to the (0,1) interval.
-    * g(z) ≥ 0, when z ≥ 0
+    * g(z) ≥ 0.5, when z ≥ 0
 * h<sub>θ</sub>(x) = 1 / (1 + e<sup>-θ<sup>T</sup>x</sup>)
 * Interpretation of hypothesis output:
     * h<sub>θ</sub>(x) = estimated probability that y = 1 on input x parameterized by θ.
@@ -43,6 +43,7 @@ Cost function:
 * Cost( h<sub>θ</sub>(x), y ) = 
     * -log(h<sub>θ</sub>(x)), if y = 1
     * -log(1 - h<sub>θ</sub>(x)), if y = 0
+    * -y log( h<sub>θ</sub>(x) ) + (1-y) log(1 - h<sub>θ</sub>(x))
 * Properties:
     * it is always convex for logistic regression
     * if h<sub>θ</sub>(x) = y, Cost( h<sub>θ</sub>(x), y ) = 0
