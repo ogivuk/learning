@@ -10,7 +10,7 @@ There are two types of classification problems.
 * where y ∈ {0,1}. 
 * 0 is also known as negative class and 1 as positive class.
 * 0 and 1 are also sometimes denoted as - and +, respectivelly.
-* can be solved using the [Logistic Regression](Logistic\ Regression.md) algorithm.
+* can be solved using the [Logistic Regression](Logistic%20Regression.md) algorithm.
 
 **Multiclass Classification Problem**
 
@@ -20,5 +20,5 @@ There are two types of classification problems.
     * h<sub>θ</sub><sup>(0)</sup>(x) = P( y=0 | x; θ)
     * h<sub>θ</sub><sup>(1)</sup>(x) = P( y=1 | x; θ)
     * ...
-    * h<sub>θ</sub><sup>(n)</sup>(x) = P( y=0 | x; n)
+    * h<sub>θ</sub><sup>(n)</sup>(x) = P( y=n | x; θ)
     * prediction = max<sub>i</sub>( h<sub>θ</sub><sup>(i)</sup>(x) )
