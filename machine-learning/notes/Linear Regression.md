@@ -5,21 +5,28 @@ However, applying linear regression to classification problems is often not a go
 
 ## Model
 
-* Notation:
-  * n = number of features
-  * m = number of training examples
-  * x_j^(i) = value of feature j in the i^th training example
-  * x^(i) = input (features) of the i^th training example
-* Multivariate linear regression:
-  * Hypothesis:
-    * h_θ(x) = θ_0·x_0 + θ_1·x_1 + θ_2·x_2 + ... + θ_n·x_n
-      * x_0 = 1, for convenience
-    * h_θ(x) = θ^T·x
-      * θ is n+1 dimensional vector of parameters
-      * x is n+1 dimensional vector of features
-  * Cost function:
-    * J(θ) = 1/(2m)·∑_{i=1}^{m} (h_θ(x^(i)) - y^(i))^2
-* Polynomial Regression
+Notation:
+
+* n = number of features.
+* m = number of training examples.
+* x<sub>j</sub><sup>(i)</sup> = value of feature j in the i<sup>th</sup> training example.
+* x<sup>(i)</sup> = input (features) of the i<sup>th</sup> training example.
+* X = the design matrix of size of m x (n+1) with all feature values for all training data. Row i of X contains values of all features for the i<sup>th</sup> training example, including x<sub>0</sub><sup>(i)</sup>=1 so that X(:,1)=1.
+* y<sup>(i)</sup> = resulting (output) value for the i<sup>th</sup> training example.
+* y = vector of size m containing resulting (output) values for all training data.
+
+Multivariate linear regression:
+
+* Hypothesis:
+  * h<sub>θ</sub>(x) = θ<sub>0</sub>·x<sub>0</sub> + θ<sub>1</sub>·x<sub>1</sub> + θ<sub>2</sub>·x<sub>2</sub> + ... + θ<sub>n</sub>·x<sub>n</sub>
+    * x<sub>0</sub> = 1, for convenience
+  * h<sub>θ</sub>(x) = θ<sup>T</sup>·x
+    * θ is n+1 dimensional vector of parameters
+    * x is n+1 dimensional vector of features
+* Cost function:
+  * J(θ) = 1/(2m)·∑<sub>i=1</sub><sup>m</sup> (h<sub>θ</sub>(x<sup>(i)</sup>) - y<sup>(i)</sup>)<sup>2</sup>
+
+Polynomial Regression:
   * Making hypothesis function to be quadratic, cubic, square root, etc.
   * Creating additional features based on existing features
   * Examples of making h_θ(x) to be
@@ -34,7 +41,7 @@ However, applying linear regression to classification problems is often not a go
 ### Gradient Descent
 
 * Algorithm: repeat the following until convergence
-  * θ_j := θ_j - α·1/m·∑_{i=1}^{m} (h_θ(x^(i)) - y^(i))·x^(i); for j:=0...n
+  * θ_j := θ_j - α·1/m·∑_{i=1}^{m} (h_θ(x^(i)) - y^(i))·x<sub>j</sub><sup>(i)</sup>; for j:=0...n
   * simultaneously update all θ_j
   * it is common to declare convergence if J(θ) decreases by less than 0.001 in 1 iteration
 * the chosen cost function is always convex -> only one (global) minimum is always reached.
@@ -52,15 +59,30 @@ However, applying linear regression to classification problems is often not a go
     * too large α -> J(θ) may not decrease with every iteration, and it may even diverge
     * To choose α, try different numbers such as 0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1
 
+### Other Optimization Algorithms
+
+Given θ and ways to compute J(θ) and partial derivaties of J(θ), the following algorithms can be also used instead of Gradient descent:
+
+* Conjugate gradient
+* BFGS
+* L-BFGS
+
+Their advantages are:
+
+* No need to manually pick the learning rate α
+* Often faster than Gradient descent
+
+Their disadvantages:
+
+* More complex than Gradient descent to implement, but they can be just used out-of-the-box
+
+In Octave, they can be utilized by using the function *fminunc(...)* and providing a function that calculates J(θ) and partial derivaties of J(θ).
+
 ### Normal Equation
 
 * Analytical way of calculating the parameters, no iterations.
 * Minimize the cost function J(θ) by setting to zero all its partial derivatives with respect to every θ_j.
 * θ = (X^T·X)^(-1)·X^T·y
-  * X is the design matrix with the size of m times (n+1)
-  * X containes all feature values for all training data.
-  * One row of X contains values of all features, including x_0^(i)=1, for one given example.
-  * y is a vector of size m containing output values for all training data.
 * There is no need to do feature scaling with the normal equation.
 * Normal Equation is prefered when n is not very large, e.g., n<10000, since the matrix inverse is an expensive operation with the complexity of O(n^3), where n is the size of the matrix.
 * If X^T·X is noninvertible:
