@@ -16,7 +16,7 @@ There are two types of classification problems.
 
 * where y ∈ {0,1,2,...,n}
 * can be solved by **One-versus-all** algorithm:
-    * divides the problem into n+1 binary classification problems, each solving with e.g., [Logistic Regression](Logistic\ Regression.md), and then takes the prediction with the maximum probability:
+    * divides the problem into n+1 binary classification problems, each solving with e.g., [Logistic Regression](Logistic%20Regression.md), and then takes the prediction with the maximum probability:
     * h<sub>θ</sub><sup>(0)</sup>(x) = P( y=0 | x; θ)
     * h<sub>θ</sub><sup>(1)</sup>(x) = P( y=1 | x; θ)
     * ...
