@@ -17,27 +17,6 @@ Literature: Harry J.W. Percival, "Test-Driven Development with Python. Obey the 
 ## Learning Notes
 
 ### Django
-Django’s workflow:
-1. An HTTP request comes in for a particular URL.
-2. Django uses some rules to decide which view function should deal with the request (this is referred to as resolving the URL).
-3. The view function processes the request and user input, and returns an HTTP response.
-
-Django uses request and response objects to pass state through the system.
-* When a page is requested, Django creates an HttpRequest object that contains metadata about the request.
-* Then Django loads the appropriate view, passing the HttpRequest as the first argument to the view function.
-* Each view is responsible for returning an HttpResponse object.
-
-#### Projects
-Creating a new project:
-```
-$ django-admin.py startproject <project name> .
-```
-File structure:
-* settings.py - contains the settings of the project.
-    * List of registered apps for the project.
-    * Specifications for the used database(s) in the project.
-    * URL prefix to specify which URLs should be treated as requests for static files; it is `/static/` by default.
-* urls.py - contains mapping from URLs to view functions for the whole site. 
 
 #### manage.py
 * `manage.py` is Django’s Swiss Army knife.
@@ -49,27 +28,6 @@ Can be used to:
     * Recreate a fresh and empty database: ```$ python manage.py migrate --noinput```
 * Gather all static files from various app folders: ```$ python manage.py collectstatic```
     * The destination folder is defined in settings.py as STATIC_ROOT.
-
-#### Apps
-* Structuring code into apps is a good practice with Django.
-* One project can have many apps: reused apps or 3rd-party apps developed by others.
-
-Starting an app:
-```
-$ python manage.py startapp <app name>
-```
-
-Registering the app with the project:
-* in the project's `settings.py`, add `<app name>` into the `INSTALLED_APPS` variable.
-
-File and folder structure:
-* migrations/ - contains the database migrations files.
-* static/ - contains the static files, such as CSS files.
-* templates/ - contains the templates for rendering. Not initially created, but Django searches this directory for templates by default.
-* models.py - contains the models that map to data stored in a database.
-* tests.py - contains the unit tests for the app.
-* urls.py - contains mapping from URLs to view functions for the app, to make it more contained. It needs to be included in the project's urls.py.
-* views.py - contains the views, which are functions that render templates, called when resolving URLs. A view function processes user input and returns an appropriate response.
 
 #### Testing Tools
 * Unit Testing
@@ -297,3 +255,5 @@ Key difference between path and re_path is that path uses route without regex
 * [Emily Bache, Mocks, Fakes and Stubs](https://leanpub.com/mocks-fakes-stubs)
 * Steve Freeman and Nat Pryce, Growing Object-Oriented Software Guided by Tests, Addison-Wesley
 * [How to Customize Twitter's Bootstrap](https://coding.smashingmagazine.com/2013/03/customizing-bootstrap/)
+
+https://github.com/getify/You-Dont-Know-JS/blob/master/README.md
